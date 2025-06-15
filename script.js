@@ -1,13 +1,14 @@
 var updateCurrentDataErrorCounter = 0;
 var updateCurrentDataTooOld = false;
 
+var blockCN, blockErrorServer, blockErrorIRD, fieldCN, fieldTimestamp, rowTimestamp;
+
 function updateCurrentDataSuccess(dataString) {
 	
 	var data = JSON.parse(dataString);
 		
 	var valueCN = data.cn/100;
-	document.getElementById('field-cn').innerText = (valueCN >= 0) ? (valueCN.toFixed(1) + ' dB') : 'NO CR';
-	var blockCN = document.getElementById('block-cn');
+	fieldCN.innerText = (valueCN >= 0) ? (valueCN.toFixed(1) + ' dB') : 'NO CR';
 	blockCN.classList.remove('good');
 	blockCN.classList.remove('warning');
 	blockCN.classList.remove('bad');
@@ -22,12 +23,12 @@ function updateCurrentDataSuccess(dataString) {
 		blockCN.classList.add('no-carrier');
 	
 	var valueTimestamp = Date.parse(data.Timestamp);
-	document.getElementById('field-timestamp').innerText = (new Date(valueTimestamp)).toLocaleString();
+	fieldTimestamp.innerText = (new Date(valueTimestamp)).toLocaleString();
 	updateCurrentDataTooOld = ((Date.now() - valueTimestamp) > 10 * 1000);
 	if (updateCurrentDataTooOld)
-		document.getElementById('row-timestamp').classList.add('warning');
+		rowTimestamp.classList.add('warning');
 	else
-		document.getElementById('row-timestamp').classList.remove('warning');
+		rowTimestamp.classList.remove('warning');
 	
 	updateCurrentDataErrorCounter = 0;
 	updateCurrentDataErrorHandler();
@@ -41,11 +42,17 @@ function updateCurrentDataError() {
 
 function updateCurrentDataErrorHandler() {
 	if (updateCurrentDataErrorCounter > 3) {
-		document.getElementById('block-error-server').style.display = 'block';
-		document.getElementById('block-error-ird').style.display = 'none';
+		blockErrorServer.style.display = 'block';
+		blockErrorIRD.style.display = 'none';
+		blockCN.classList.add('dim');
+	} else if (updateCurrentDataTooOld) {
+		blockErrorServer.style.display = 'none';
+		blockErrorIRD.style.display = 'block';
+		blockCN.classList.add('dim');
 	} else {
-		document.getElementById('block-error-server').style.display = 'none';
-		document.getElementById('block-error-ird').style.display = updateCurrentDataTooOld ? 'block' : 'none';
+		blockErrorServer.style.display = 'none';
+		blockErrorIRD.style.display = 'none';
+		blockCN.classList.remove('dim');
 	}
 }
 
@@ -75,8 +82,17 @@ var SETTINGS = {
 };
 
 $(function(){
+	
+	blockCN = document.getElementById('block-cn');
+	blockErrorServer = document.getElementById('block-error-server');
+	blockErrorIRD = document.getElementById('block-error-ird');
+	fieldCN = document.getElementById('field-cn');
+	fieldTimestamp = document.getElementById('field-timestamp');
+	rowTimestamp = document.getElementById('row-timestamp');
+	
 	updateCurrentData();
 	setInterval(updateCurrentData, 1000);
+	
 });
 
 

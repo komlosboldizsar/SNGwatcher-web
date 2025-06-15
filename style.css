@@ -47,6 +47,9 @@ body {
 	font-size: 500%;
 	text-align: center;
 }
+#block-cn.dim {
+	opacity: 0.3;
+}
 #block-cn.good {
 	background-color: #90ee90;
 }
