@@ -57,13 +57,13 @@ function updateCurrentDataErrorHandler() {
 }
 
 function updateCurrentData() {
-	$.get('https://sngwatcher.kboldi.hu/get.php?data=current&sng=' + SNG_ID)
+	$.get('get.php?data=current&sng=' + SNG_ID)
      .done(updateCurrentDataSuccess);
 }
 
 // This part not working, using fixed settings
 function updateRangeData() {
-	$.get('https://sngwatcher.kboldi.hu/get.php?data=settings&sng=' + SNG_ID, function(dataString) {
+	$.get('get.php?data=settings&sng=' + SNG_ID, function(dataString) {
 		SETTINGS = JSON.parse(dataString);
 	});
 }
