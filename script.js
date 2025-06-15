@@ -6,17 +6,20 @@ function updateCurrentDataSuccess(dataString) {
 	var data = JSON.parse(dataString);
 		
 	var valueCN = data.cn/100;
-	document.getElementById('field-cn').innerText = valueCN.toFixed(1) + ' dB';
+	document.getElementById('field-cn').innerText = (valueCN >= 0) ? (valueCN.toFixed(1) + ' dB') : 'NO CR';
 	var blockCN = document.getElementById('block-cn');
 	blockCN.classList.remove('good');
 	blockCN.classList.remove('warning');
 	blockCN.classList.remove('bad');
+	blockCN.classList.remove('no-carrier');
 	if ((valueCN >= SETTINGS.ranges.good.min) && (valueCN <= SETTINGS.ranges.good.max))
 		blockCN.classList.add('good');
 	else if ((valueCN >= SETTINGS.ranges.warning.min) && (valueCN <= SETTINGS.ranges.warning.max))
 		blockCN.classList.add('warning');
-	else
+	else if (valueCN >= 0)
 		blockCN.classList.add('bad');
+	else
+		blockCN.classList.add('no-carrier');
 	
 	var valueTimestamp = Date.parse(data.Timestamp);
 	document.getElementById('field-timestamp').innerText = (new Date(valueTimestamp)).toLocaleString();

@@ -56,6 +56,10 @@ body {
 #block-cn.bad {
 	background-color: #ee9090;
 }
+#block-cn.no-carrier {
+	background-color: #800000;
+	color: white;
+}
 #field-cn {
 	padding: 20px;
 	/*font-family: "Roboto Mono", sans-serif;*/
