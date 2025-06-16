@@ -35,7 +35,7 @@
   if ($keyFound != $paramKey)
     die('Invalid key!');
 
-  file_put_contents("data/".$paramSng."__".$paramData.".json", $data);
+  file_put_contents("data/".$paramSng."__".$paramType.".json", $data);
   echo "Successful [$paramType] update for [$paramSng].";
 
 ?>
