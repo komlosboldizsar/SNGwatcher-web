@@ -57,13 +57,13 @@ function updateCurrentDataErrorHandler() {
 }
 
 function updateCurrentData() {
-	$.get('get.php?data=current&sng=' + SNG_ID)
+	$.get('get.php?type=current&sng=' + SNG_ID)
      .done(updateCurrentDataSuccess);
 }
 
 // This part not working, using fixed settings
 function updateRangeData() {
-	$.get('get.php?data=settings&sng=' + SNG_ID, function(dataString) {
+	$.get('get.php?type=settings&sng=' + SNG_ID, function(dataString) {
 		SETTINGS = JSON.parse(dataString);
 	});
 }

@@ -3,16 +3,16 @@
   header('Access-Control-Allow-Origin: *');
 
   $paramSng = $_GET['sng'];
-  $paramData = $_GET['data'];
+  $paramType = $_GET['type'];
 
   if (!isset($paramSng))
     die('Missing parameter: SNG');
 
-  if (!isset($paramData))
-    die('Missing parameter: DATA');
+  if (!isset($paramType))
+    die('Missing parameter: TYPE');
 
-  //if (!in_array($paramData, $DATA_TYPES))
-    //die('Wrong data type');
+  if (!in_array($paramType, $DATA_TYPES))
+    die('Wrong data type');
 
   $found = false;
   foreach (getSngsRaw() as $sngRaw) {
@@ -25,6 +25,6 @@
     die('SNG not existing');
 
   header('Content-Type', 'text/json');
-  echo file_get_contents("data/$paramSng.json");
+  echo file_get_contents("data/".$paramSng."__".$paramType".json");
 
 ?>

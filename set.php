@@ -2,6 +2,7 @@
 
   $paramSng = $_POST['sng'];
   $paramKey = $_POST['key'];
+  $paramType = $_POST['type'];
   $data = $_POST['data'];
 
   if (!isset($paramSng))
@@ -9,6 +10,12 @@
 
   if (!isset($paramKey))
     die('Missing parameter: KEY');
+
+  if (!isset($paramType))
+    die('Missing parameter: TYPE');
+
+  if (!in_array($paramType, $DATA_TYPES))
+    die('Wrong data type');
 
   if (!isset($data))
     die('Missing data');
@@ -26,8 +33,8 @@
   if ($keyFound != $paramKey)
     die('Invalid key!');
 
-  file_put_contents("data/$paramSng.json", $data);
-  echo "Successful update for $paramSng.";
+  file_put_contents("data/".$paramSng."__".$paramData".json", $data);
+  echo "Successful [$paramType] update for [$paramSng].";
 
 ?>
 
