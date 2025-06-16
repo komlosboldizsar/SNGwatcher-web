@@ -76,7 +76,6 @@ printWithColor "Mode for directories: $CHMOD_DIRECTORIES" 103 30
 printWithColor "Mode for project files: $CHMOD_PROJECT" 103 30
 find . -type f -exec chmod $CHMOD_FILES {} \;
 find . -type d -exec chmod $CHMOD_DIRECTORIES {} \;
-find cli -type f -exec chmod $CHMOD_CLI {} \;
 chmod $CHMOD_PROJECT .gitignore update.sh
 chmod +x update.sh
 printWithColor "Switching back to $CW_DIR..." 46 30
