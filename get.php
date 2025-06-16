@@ -8,18 +8,14 @@
   if (!isset($paramSng))
     die('Missing parameter: SNG');
 
-  //if (!isset($paramData))
-    //die('Missing parameter: DATA');
+  if (!isset($paramData))
+    die('Missing parameter: DATA');
 
-  $DATA_TYPES = array('current', 'settings');
-//  if (!in_array($paramData, $DATA_TYPES))
-//    die('Wrong data type');
+  //if (!in_array($paramData, $DATA_TYPES))
+    //die('Wrong data type');
 
-  $sngsCsv = file_get_contents("data/sngs.csv");
-  $sngsCsv = str_replace("\r", "", $sngsCsv);
-  $sngsRaw = explode("\n", $sngsCsv);
   $found = false;
-  foreach ($sngsRaw as $sngRaw) {
+  foreach (getSngsRaw() as $sngRaw) {
     $sngData = explode(",", $sngRaw);
     if ($sngData[0] == $paramSng)
       $found = true;
@@ -29,6 +25,6 @@
     die('SNG not existing');
 
   header('Content-Type', 'text/json');
-  echo file_get_contents("data/$paramSng.json", $data);
+  echo file_get_contents("data/$paramSng.json");
 
 ?>

@@ -13,11 +13,8 @@
   if (!isset($data))
     die('Missing data');
 
-  $sngsCsv = file_get_contents("data/sngs.csv");
-  $sngsCsv = str_replace("\r", "", $sngsCsv);
-  $sngsRaw = explode("\n", $sngsCsv);
   $keyFound = NULL;
-  foreach ($sngsRaw as $sngRaw) {
+  foreach (getSngsRaw() as $sngRaw) {
     $sngData = explode(",", $sngRaw);
     if ($sngData[0] == $paramSng)
       $keyFound = $sngData[1];
