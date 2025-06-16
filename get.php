@@ -25,6 +25,6 @@
     die('SNG not existing');
 
   header('Content-Type', 'text/json');
-  echo file_get_contents("data/".$paramSng."__".$paramType".json");
+  echo file_get_contents("data/".$paramSng."__".$paramType.".json");
 
 ?>
