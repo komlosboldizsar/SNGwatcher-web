@@ -22,7 +22,7 @@ function updateCurrentDataSuccess(dataString) {
 	else
 		blockCN.classList.add('no-carrier');
 	
-	var valueTimestamp = Date.parse(data.Timestamp);
+	var valueTimestamp = Date.parse(data.timestamp);
 	fieldTimestamp.innerText = (new Date(valueTimestamp)).toLocaleString();
 	updateCurrentDataTooOld = ((Date.now() - valueTimestamp) > 10 * 1000);
 	if (updateCurrentDataTooOld)
