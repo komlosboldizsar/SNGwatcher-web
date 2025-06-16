@@ -2,6 +2,7 @@
 
 CHMOD_FILES=0460
 CHMOD_DIRECTORIES=2570
+CHMOD_DATA=0660
 CHMOD_PROJECT=0700
 OWNER_USER=apache
 OWNER_GROUP=webmasters
@@ -23,6 +24,7 @@ function usage() {
   usageParam "-og|--ogroup" "GROUP" "Owner group for web files and directories" $OWNER_GROUP
   usageParam "-mf|--mfile" "MODE" "Permission mode for web files" $CHMOD_FILES
   usageParam "-md|--mdir" "MODE" "Permission mode for web directories" $CHMOD_DIRECTORIES
+  usageParam "-mt|--mdata" "MODE" "Permission mode for the data directory and its files (directory will get +x)" $CHMOD_DATA
   usageParam "-mp|--mproject" "MODE" "Permission mode for project files (e.g. .gitignore)" $CHMOD_PROJECT
   usageParam "-h|--help" "" "Show this usage help" ".nodefault"
   echo -e ""
@@ -35,6 +37,9 @@ while [ "$1" != "" ]; do
                                 ;;
         -md | --mdir )          shift
                                 CHMOD_DIRECTORIES=$1
+                                ;;
+		-mt | --mdata )         shift
+                                CHMOD_DATA=$1
                                 ;;
         -mp | --mproject )      shift
                                 $CHMOD_PROJECT=$1
@@ -73,9 +78,12 @@ chown -R $OWNER_USER:$OWNER_GROUP .
 printWithColor "Set permissions" 45 30
 printWithColor "Mode for files: $CHMOD_FILES" 103 30
 printWithColor "Mode for directories: $CHMOD_DIRECTORIES" 103 30
+printWithColor "Mode for data: $CHMOD_DATA" 103 30
 printWithColor "Mode for project files: $CHMOD_PROJECT" 103 30
 find . -type f -exec chmod $CHMOD_FILES {} \;
 find . -type d -exec chmod $CHMOD_DIRECTORIES {} \;
+chmod $CHMOD_DATA -R ./data
+chmod +x ./data
 chmod $CHMOD_PROJECT .gitignore update.sh
 chmod +x update.sh
 printWithColor "Switching back to $CW_DIR..." 46 30
