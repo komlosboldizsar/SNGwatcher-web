@@ -1,5 +1,6 @@
 <?php
 
+  require_once 'common.php';
   header('Access-Control-Allow-Origin: *');
 
   $paramSng = $_GET['sng'];

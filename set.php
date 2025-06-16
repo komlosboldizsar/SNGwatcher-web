@@ -1,5 +1,7 @@
 <?php
 
+  require_once 'common.php';
+
   $paramSng = $_POST['sng'];
   $paramKey = $_POST['key'];
   $paramType = $_POST['type'];
